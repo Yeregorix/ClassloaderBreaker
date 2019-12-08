@@ -25,32 +25,26 @@ package net.smoofyuniverse.clbreaker;
 import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameStartedServerEvent;
+import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-@Plugin(id = "classloaderbreaker", name = "ClassloaderBreaker", version = "1.0.0", authors = "Yeregorix")
+@Plugin(id = "classloaderbreaker", name = "ClassloaderBreaker", version = "1.0.1", authors = "Yeregorix")
 public class ClassloaderBreaker {
 
 	@Inject
 	private Logger logger;
 
 	@Listener
-	public void onServerStarted(GameStartedServerEvent e) {
+	public void onGamePreInitialization(GamePreInitializationEvent e) {
 		this.logger.info("Let's blow Forge classes ..");
 
 		HttpURLConnection co = null;
 		try {
-			co = (HttpURLConnection) new URL("https://ore.spongepowered.org/api/v2/authenticate").openConnection();
-			co.setRequestMethod("POST");
-			co.setUseCaches(false);
+			co = (HttpURLConnection) new URL("https://www.google.fr/").openConnection();
 			co.setDefaultUseCaches(false);
-			co.setRequestProperty("Cache-Control", "no-store,max-age=0,no-cache");
-			co.setRequestProperty("Pragma", "no-cache");
-			co.setRequestProperty("Expires", "0");
-			co.setRequestProperty("User-Agent", "SmoofyOreAPI/1.0.0");
 			co.connect();
 		} catch (Exception ex) {
 			this.logger.error("Oh no", ex);
